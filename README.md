@@ -70,9 +70,9 @@ This will run the script every night at midnight.
         saved_doql: 'All_Buildings' -- The name of a Saved DOQL Query in your Device42 instance
         custom_fields: -- Define a list of custom fields here
             Building Owner: -- This is the custom field key
-            type: 'text' -- Data type
-            value: 'Dwight Schrute' -- Value of the custom field
-            filterable: 'yes' -- Set to no/yes to allow filtering of field in the UI
+              type: 'text' -- Data type
+              value: 'Dwight Schrute' -- Value of the custom field
+              filterable: 'yes' -- Set to no/yes to allow filtering of field in the UI
 
 In the above example, the script will query Device42 for a saved doql query with the name 'All_Buildings'. It will then iterate through all rows in the response data, creating/updating a custom field for each row.
 
