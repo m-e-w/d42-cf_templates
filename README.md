@@ -15,11 +15,11 @@
   - [6. Example Output](#6-example-output)
 
 ## 1. Description
-Quick way to define templates to create application components for apps that Device42 does not support out of the box and pin/star services accordingly.
+Define custom field templates to create/update custom fields for various CI's in Device42.
 
 ## 2. Features
-- Automatically pin / set topology status for service instances matching on name or cmd path args.
-- Automatically create application component records on devices with associated service instances
+- Automatically create/update custom fields for various CI types.
+- Create templates to apply groups of custom fields using the response of Saved DOQL Queries as input.
 
 ## 3. Requirements
 - Python 3.6.9 or > 
