@@ -1,0 +1,22 @@
+Building_Metadata_WH:
+  ci_type: 'building'
+  unique_id: 'building_pk'
+  saved_doql: 'All_Buildings'
+  custom_fields:
+    Building Owner: 
+      type: 'text'
+      value: 'Dwight Schrute'
+      filterable: 'yes'
+    Building Manager:
+      type: 'text'
+      value: 'Michael Scott'
+      filterable: 'yes'
+Room_Metadata_WH:
+  ci_type: 'room'
+  unique_id: 'room_pk'
+  saved_doql: 'All_Rooms'
+  custom_fields:
+    Circuit Amperage: 
+      type: 'text'
+      value: '30'
+      filterable: 'yes'

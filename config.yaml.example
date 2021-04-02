@@ -1,0 +1,8 @@
+device42:
+  host: '192.168.0.1'
+  username: 'admin'
+  password: 'pass'
+
+options:
+  debug: False
+  dry_run: False
