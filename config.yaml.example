@@ -6,3 +6,4 @@ device42:
 options:
   debug: False
   dry_run: False
+  bulk_fields: False

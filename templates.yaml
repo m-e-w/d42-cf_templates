@@ -17,6 +17,11 @@ AZURE_CRE_RU_ALL:
       type: 'text'
       value: '$recommended_instance'
       filterable: 'yes'
+    Test-Static:
+      type: 'text'
+      value: '123456'
+      filterable: 'yes'
+
 
 GCP_CRE_RU_ALL:
   ci_type: 'device'
