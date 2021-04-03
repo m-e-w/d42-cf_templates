@@ -66,15 +66,15 @@ This will run the script every night at midnight.
 ### 5.1. Example template:
 **IMPORTANT: Saved DOQL queries NEED to exist in the instance first prior to running**
 
-CRE_RU_ALL: -- Name of the template (Has no bearing, just for labeling)
-  ci_type: 'device' -- Type of object in Device42
-  unique_id: 'device_fk' -- PK/FK of the object
-  saved_doql: 'cre_ru_all' -- Saved DOQL query to run (Requires the query to exist in the instance)
-  custom_fields: -- Define a list of custom fields to create/update
-    CRE - AWS Recommended Instance: -- Custom Field Name
-      type: 'text' -- Type of custom field (Only considered if bulk_fields is not used)
-      value: '$instance_aws' -- Custom Field value -- Can be a static value or a column name in the query results
-      filterable: 'yes' -- Does it show as a filter in the UI? -- (Only considered if bulk_fields is not used)
+    CRE_RU_ALL: -- Name of the template (Has no bearing, just for labeling)
+      ci_type: 'device' -- Type of object in Device42
+      unique_id: 'device_fk' -- PK/FK of the object
+      saved_doql: 'cre_ru_all' -- Saved DOQL query to run (Requires the query to exist in the instance)
+      custom_fields: -- Define a list of custom fields to create/update
+        CRE - AWS Recommended Instance: -- Custom Field Name
+          type: 'text' -- Type of custom field (Only considered if bulk_fields is not used)
+          value: '$instance_aws' -- Custom Field value -- Can be a static value or a column name in the query results
+          filterable: 'yes' -- Does it show as a filter in the UI? -- (Only considered if bulk_fields is not used)
 
 In the above example, the script will query Device42 for a saved doql query with the name 'cre_ru_all'. It will then iterate through all rows in the response data and either post all custom fields as bulk_fields (String of key:values seperated by commas) or it will post each custom field individually (Much slower but allows for other custom field types and parameters). 
 
