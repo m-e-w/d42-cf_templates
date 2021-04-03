@@ -64,6 +64,7 @@ This will run the script every night at midnight.
 
 ## 5. How it Works
 ### 5.1. Example template:
+**IMPORTANT: Saved DOQL queries NEED to exist in the instance first prior to running**
 
     Building_Metadata_WH: -- This is the name of the custom field template
         ci_type: 'building' -- The CI type {Building, room, rack, device, asset, part, appcomp}
