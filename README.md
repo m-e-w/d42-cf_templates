@@ -66,101 +66,83 @@ This will run the script every night at midnight.
 ### 5.1. Example template:
 **IMPORTANT: Saved DOQL queries NEED to exist in the instance first prior to running**
 
-    Building_Metadata_WH: -- This is the name of the custom field template
-        ci_type: 'building' -- The CI type {Building, room, rack, device, asset, part, appcomp}
-        unique_id: 'building_pk' -- The name of the primary key
-        saved_doql: 'All_Buildings' -- The name of a Saved DOQL Query in your Device42 instance
-        custom_fields: -- Define a list of custom fields here
-            Building Owner: -- This is the custom field key
-              type: 'text' -- Data type
-              value: 'Dwight Schrute' -- Value of the custom field
-              filterable: 'yes' -- Set to no/yes to allow filtering of field in the UI
+CRE_RU_ALL: -- Name of the template (Has no bearing, just for labeling)
+  ci_type: 'device' -- Type of object in Device42
+  unique_id: 'device_fk' -- PK/FK of the object
+  saved_doql: 'cre_ru_all' -- Saved DOQL query to run (Requires the query to exist in the instance)
+  custom_fields: -- Define a list of custom fields to create/update
+    CRE - AWS Recommended Instance: -- Custom Field Name
+      type: 'text' -- Type of custom field (Only considered if bulk_fields is not used)
+      value: '$instance_aws' -- Custom Field value -- Can be a static value or a column name in the query results
+      filterable: 'yes' -- Does it show as a filter in the UI? -- (Only considered if bulk_fields is not used)
 
-In the above example, the script will query Device42 for a saved doql query with the name 'All_Buildings'. It will then iterate through all rows in the response data, creating/updating a custom field for each row.
+In the above example, the script will query Device42 for a saved doql query with the name 'cre_ru_all'. It will then iterate through all rows in the response data and either post all custom fields as bulk_fields (String of key:values seperated by commas) or it will post each custom field individually (Much slower but allows for other custom field types and parameters). 
 
 ## 6. Example Output
 Below is sample output returned from executing the script:  
 
-        Loading template: Building_Metadata_WH
+  Loading template: CRE_RU_ALL
 
-        Calling saved DOQL query: All_Buildings
-
-        Put: /api/1.0/custom_fields/building/
-                Payload: {'type': 'text', 'value': 'Dwight Schrute', 'filterable': 'yes', 'id': 168, 'key': 'Building Owner'}
-                Response: {'msg': ['custom key pair values added or updated', 168, 'Narnia', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/building/
-                Payload: {'type': 'text', 'value': 'Michael Scott', 'filterable': 'yes', 'id': 168, 'key': 'Building Manager'}
-                Response: {'msg': ['custom key pair values added or updated', 168, 'Narnia', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/building/
-                Payload: {'type': 'text', 'value': 'Dwight Schrute', 'filterable': 'yes', 'id': 170, 'key': 'Building Owner'}
-                Response: {'msg': ['custom key pair values added or updated', 170, 'West Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/building/
-                Payload: {'type': 'text', 'value': 'Michael Scott', 'filterable': 'yes', 'id': 170, 'key': 'Building Manager'}
-                Response: {'msg': ['custom key pair values added or updated', 170, 'West Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/building/
-                Payload: {'type': 'text', 'value': 'Dwight Schrute', 'filterable': 'yes', 'id': 1, 'key': 'Building Owner'}
-                Response: {'msg': ['custom key pair values added or updated', 1, 'New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/building/
-                Payload: {'type': 'text', 'value': 'Michael Scott', 'filterable': 'yes', 'id': 1, 'key': 'Building Manager'}
-                Response: {'msg': ['custom key pair values added or updated', 1, 'New Haven', False, False], 'code': 0}
-
-        Loading template: Room_Metadata_WH
-
-        Calling saved DOQL query: All_Rooms
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 3, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 3, 'IDF3 @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 2, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 2, 'IDF2 @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 1, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 1, 'NHDC1 @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 46, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 46, 'Transit @ West Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 5, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 5, 'IT Lab @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 20, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 20, 'wardrobe @ Narnia', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 26, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 26, 'IDF2 @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 28, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 28, 'QTS demo room @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 42, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 42, 'QA LAb @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 21, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 21, 'WH01 @ West Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 6, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 6, 'Corner Room @ New Haven', False, False], 'code': 0}
-
-        Put: /api/1.0/custom_fields/room/
-                Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 4, 'key': 'Circuit Amperage'}
-                Response: {'msg': ['custom key pair values added or updated', 4, 'IDF4 @ New Haven', False, False], 'code': 0}
-
+  Calling saved DOQL query: cre_ru_all
+          Payload: {'device_id': 5555, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.nano,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 5555, 'debian-85-001.device42.pvt', False, False], 'code': 0}
+          Payload: {'device_id': 5564, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.nano,CRE - Azure Recommended Instance:B1LS,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 5564, 'zabbix-01', False, False], 'code': 0}
+          Payload: {'device_id': 5572, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:B1S,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 5572, 'ubuntu-1404-001.device42.pvt', False, False], 'code': 0}
+          Payload: {'device_id': 6170, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.nano,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 6170, 'jira-demo-01', False, False], 'code': 0}
+          Payload: {'device_id': 7564, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.medium,CRE - Azure Recommended Instance:F2s v2,CRE - GCP Recommended Instance:e2-medium,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 7564, 'jira-7-dev.device42.pvt', False, False], 'code': 0}
+          Payload: {'device_id': 10405, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.nano,CRE - Azure Recommended Instance:B1LS,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 10405, 's1-mysql-9062.device42.pvt', False, False], 'code': 0}
+          Payload: {'device_id': 11982, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.medium,CRE - Azure Recommended Instance:F2s v2,CRE - GCP Recommended Instance:e2-medium,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 11982, 'ip-10-10-19-177.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 11988, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 11988, 'ip-10-10-39-145.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 11995, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.medium,CRE - Azure Recommended Instance:F2s v2,CRE - GCP Recommended Instance:e2-medium,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 11995, 'ip-10-10-109-69.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 11997, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 11997, 'ip-10-10-97-38.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 12134, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.nano,CRE - Azure Recommended Instance:B1LS,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 12134, 'oracle-901110', False, False], 'code': 0}
+          Payload: {'device_id': 13265, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.medium,CRE - Azure Recommended Instance:F2s v2,CRE - GCP Recommended Instance:e2-medium,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13265, 'ip-10-10-31-197.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13275, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13275, 'ip-10-10-18-82.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13277, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13277, 'ip-10-10-127-144.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13278, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13278, 'ip-10-10-68-233.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13279, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13279, 'ip-10-10-84-68.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13280, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.large,CRE - Azure Recommended Instance:D2s v4,CRE - GCP Recommended Instance:e2-standard-2,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13280, 'ip-10-10-79-72.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13281, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13281, 'ip-10-10-59-173.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13282, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13282, 'ip-10-10-30-92.ec2.internal', False, False], 'code': 0}
+          Payload: {'device_id': 13807, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:B2S,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13807, 'oracle-90119', False, False], 'code': 0}
+          Payload: {'device_id': 13808, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.nano,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:f1-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13808, 'oracle-90118', False, False], 'code': 0}
+          Payload: {'device_id': 13809, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 13809, 'jenkins-90-11-11.device42.com', False, False], 'code': 0}
+          Payload: {'device_id': 14133, 'bulk_fields': 'CRE - AWS Recommended Instance:t2.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 14133, 'qa-wds-90114', False, False], 'code': 0}
+          Payload: {'device_id': 14135, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.medium,CRE - Azure Recommended Instance:F2s v2,CRE - GCP Recommended Instance:e2-medium,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 14135, 'oracle-90116', False, False], 'code': 0}
+          Payload: {'device_id': 14137, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.medium,CRE - Azure Recommended Instance:F2s v2,CRE - GCP Recommended Instance:e2-medium,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 14137, 'oracle-90117', False, False], 'code': 0}
+          Payload: {'device_id': 14139, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.medium,CRE - Azure Recommended Instance:F2s v2,CRE - GCP Recommended Instance:e2-medium,CRE - Right Sized:True'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 14139, 'oracle-90115', False, False], 'code': 0}
+          Payload: {'device_id': 14140, 'bulk_fields': 'CRE - AWS Recommended Instance:t3a.large,CRE - Azure Recommended Instance:D2s v4,CRE - GCP Recommended Instance:e2-standard-2,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 14140, 'wds-901114', False, False], 'code': 0}
+          Payload: {'device_id': 16262, 'bulk_fields': 'CRE - AWS Recommended Instance:t2.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 16262, 'WINDOWS-167U3IP', False, False], 'code': 0}
+          Payload: {'device_id': 16273, 'bulk_fields': 'CRE - AWS Recommended Instance:t2.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
+          Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 16273, 'WINDOWS-LRT92AE', False, False], 'code': 0}
+        
 ## 7. Changelog
 **2021-04-03**  
   - Added support for dynamic fields (Use column names to assign custom field values)
