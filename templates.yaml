@@ -1,34 +1,17 @@
-AWS_CRE_RU_ALL:
+CRE_RU_ALL:
   ci_type: 'device'
   unique_id: 'device_fk'
-  saved_doql: 'aws_cre_ru_all'
+  saved_doql: 'cre_ru_all'
   custom_fields:
     CRE - AWS Recommended Instance: 
       type: 'text'
-      value: '$recommended_instance'
+      value: '$instance_aws'
       filterable: 'yes'
-
-AZURE_CRE_RU_ALL:
-  ci_type: 'device'
-  unique_id: 'device_fk'
-  saved_doql: 'azure_cre_ru_all'
-  custom_fields:
     CRE - Azure Recommended Instance: 
       type: 'text'
-      value: '$recommended_instance'
+      value: '$instance_azure'
       filterable: 'yes'
-    Test-Static:
-      type: 'text'
-      value: '123456'
-      filterable: 'yes'
-
-
-GCP_CRE_RU_ALL:
-  ci_type: 'device'
-  unique_id: 'device_fk'
-  saved_doql: 'gcp_cre_ru_all'
-  custom_fields:
     CRE - GCP Recommended Instance: 
       type: 'text'
-      value: '$recommended_instance'
+      value: '$instance_gcp'
       filterable: 'yes'
