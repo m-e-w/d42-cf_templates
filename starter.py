@@ -37,37 +37,41 @@ def module_bulk_field():
         if(cf_endpoint != 'Undefined'):
             print('\nCalling saved DOQL query: %s' % saved_doql_name)
             results = device42_api._get_doql(saved_doql_name)
-            
-            for row in results: 
-                bulk_fields = []
-                data = {}
-                if row[unique_id]:
-                    if ci_type == 'device':
-                        data['device_id'] = row[unique_id]
-                    else:
-                        data['id'] = row[unique_id]
+            if type(results) is not list:
+                print(results)
+            else:
+                 for row in results: 
+                    bulk_fields = []
+                    data = {}
+                    if row[unique_id]:
+                        if ci_type == 'device':
+                            data['device_id'] = row[unique_id]
+                        else:
+                            data['id'] = row[unique_id]
 
-                    for cf in templates[template]['custom_fields']:
-                        key = cf
-                        value = templates[template]['custom_fields'][cf]['value']
+                        for cf in templates[template]['custom_fields']:
+                            key = cf
+                            value = templates[template]['custom_fields'][cf]['value']
 
-                        if value.startswith('$'):
-                            value = value[1:]
-                            if row[value] is None:
-                                value = 'None'
-                            else:
-                                value = row[value]
-                        kvp = key + ':' + value
-                        bulk_fields.append(kvp)
+                            if value.startswith('$'):
+                                value = value[1:]
+                                if row[value] is None:
+                                    value = 'None'
+                                else:
+                                    value = row[value]
+                            kvp = key + ':' + value
+                            bulk_fields.append(kvp)
 
-                    data['bulk_fields'] = ",".join(bulk_fields)   
-                    if debug or dry_run:
-                        print('\tPayload: %s' % data)
+                        data['bulk_fields'] = ",".join(bulk_fields)   
+                        if debug or dry_run:
+                            print('\tPayload: %s' % data)
 
-                    if(dry_run == False):
-                        response = device42_api._put_cf(data, cf_endpoint)
-                        print('\tPut:\t%s\tResponse: %s' % (cf_endpoint,response))
+                        if(dry_run == False):
+                            response = device42_api._put_cf(data, cf_endpoint)
+                            print('\tPut:\t%s\tResponse: %s' % (cf_endpoint,response))
 
+    
+                
 def module_normal():
     for template in templates: 
         print('\nLoading template: %s' % template)
