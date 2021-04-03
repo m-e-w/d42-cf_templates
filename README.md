@@ -20,6 +20,7 @@ Define custom field templates to create/update custom fields for various CI's in
 ## 2. Features
 - Automatically create/update custom fields for various CI types.
 - Create templates to apply groups of custom fields using the response of Saved DOQL Queries as input.
+- Dynamic fields (Specify column vales from DOQL to use as custom field values)
 
 ## 3. Requirements
 - Python 3.6.9 or > 
