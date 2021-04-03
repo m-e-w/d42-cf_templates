@@ -40,18 +40,24 @@ def main():
             
             for row in results: 
                 for cf in templates[template]['custom_fields']:
-                    data = templates[template]['custom_fields'][cf]
-                    data['id'] = row[unique_id]
-                    data['key'] = cf
+                    cf_value = templates[template]['custom_fields'][cf]['value']
+                    data = dict(templates[template]['custom_fields'][cf])
 
-                    print('\nPut: %s' % cf_endpoint)
-                    print('\tPayload: %s' % data)
-
-                    if(dry_run):
-                        print('\tResponse: N/A - Dry Run') 
+                    if ci_type == 'device':
+                        data['device_id'] = row[unique_id]
                     else:
+                        data['id'] = row[unique_id]
+                    data['key'] = cf
+                    if cf_value.startswith('$'):
+                        cf_value = cf_value[1:]
+                        data['value'] = row[cf_value]
+                   
+                    if debug or dry_run:
+                        print('\tPayload: %s' % data)
+
+                    if(dry_run == False):
                         response = device42_api._put_cf(data, cf_endpoint)
-                        print('\tResponse: %s' % response)
+                        print('\tPut:\t%s\tResponse: %s' % (cf_endpoint,response))
     
 if __name__ == '__main__':
     main()

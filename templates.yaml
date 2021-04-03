@@ -1,22 +1,9 @@
-Building_Metadata_WH:
-  ci_type: 'building'
-  unique_id: 'building_pk'
-  saved_doql: 'All_Buildings'
+AWS_CRE:
+  ci_type: 'device'
+  unique_id: 'device_fk'
+  saved_doql: 'aws_cre_all'
   custom_fields:
-    Building Owner: 
+    AWS Recommended Instance: 
       type: 'text'
-      value: 'Dwight Schrute'
-      filterable: 'yes'
-    Building Manager:
-      type: 'text'
-      value: 'Michael Scott'
-      filterable: 'yes'
-Room_Metadata_WH:
-  ci_type: 'room'
-  unique_id: 'room_pk'
-  saved_doql: 'All_Rooms'
-  custom_fields:
-    Circuit Amperage: 
-      type: 'text'
-      value: '30'
+      value: '$recommended_instance'
       filterable: 'yes'
