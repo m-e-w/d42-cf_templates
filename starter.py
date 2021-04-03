@@ -13,6 +13,7 @@ device42 = config['device42']
 device42_api = Device42Api(device42, options)
 dry_run = options['dry_run']
 debug = options['debug']
+use_bulk_fields = options['bulk_fields']
 
 def find_endpoint(x):
     return {
@@ -25,8 +26,46 @@ def find_endpoint(x):
         'appcomp' : '/api/1.0/custom_fields/appcomp/'
     }.get(x, 'Undefined')
 
-def main():
-    
+def module_bulk_field():
+    for template in templates: 
+        print('\nLoading template: %s' % template)
+        saved_doql_name = templates[template]['saved_doql']
+        unique_id = templates[template]['unique_id']
+        ci_type = templates[template]['ci_type']
+        cf_endpoint = find_endpoint(ci_type)
+       
+        if(cf_endpoint != 'Undefined'):
+            print('\nCalling saved DOQL query: %s' % saved_doql_name)
+            results = device42_api._get_doql(saved_doql_name)
+            
+            for row in results: 
+                bulk_fields = []
+                data = {}
+                if ci_type == 'device':
+                    data['device_id'] = row[unique_id]
+                else:
+                    data['id'] = row[unique_id]
+
+                for cf in templates[template]['custom_fields']:
+                    key = cf
+                    value = templates[template]['custom_fields'][cf]['value']
+
+                    if value.startswith('$'):
+                        value = value[1:]
+                        value = row[value]
+
+                    kvp = key + ':' + value
+                    bulk_fields.append(kvp)
+
+                data['bulk_fields'] = ",".join(bulk_fields)   
+                if debug or dry_run:
+                    print('\tPayload: %s' % data)
+
+                if(dry_run == False):
+                    response = device42_api._put_cf(data, cf_endpoint)
+                    print('\tPut:\t%s\tResponse: %s' % (cf_endpoint,response))
+
+def module_normal():
     for template in templates: 
         print('\nLoading template: %s' % template)
         saved_doql_name = templates[template]['saved_doql']
@@ -58,6 +97,14 @@ def main():
                     if(dry_run == False):
                         response = device42_api._put_cf(data, cf_endpoint)
                         print('\tPut:\t%s\tResponse: %s' % (cf_endpoint,response))
+
+
+def main():
+    if use_bulk_fields:
+        module_bulk_field()
+    else:
+        module_normal()
+
     
 if __name__ == '__main__':
     main()
