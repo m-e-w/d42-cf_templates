@@ -13,7 +13,7 @@
   - [5. How it Works](#5-how-it-works)
     - [5.1. Example template:](#51-example-template)
   - [6. Example Output](#6-example-output)
-
+  - [7. Changelog](#7-changelog)
 ## 1. Description
 Define custom field templates to create/update custom fields for various CI's in Device42.
 
@@ -160,3 +160,8 @@ Below is sample output returned from executing the script:
         Put: /api/1.0/custom_fields/room/
                 Payload: {'type': 'text', 'value': '30', 'filterable': 'yes', 'id': 4, 'key': 'Circuit Amperage'}
                 Response: {'msg': ['custom key pair values added or updated', 4, 'IDF4 @ New Haven', False, False], 'code': 0}
+
+## 7. Changelog
+**2021-04-03**  
+  - Added support for dynamic fields (Use column names to assign custom field values)
+  - Added support for bulk_fields (Speeds up requests)
