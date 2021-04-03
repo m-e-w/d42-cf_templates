@@ -15,3 +15,7 @@ CRE_RU_ALL:
       type: 'text'
       value: '$instance_gcp'
       filterable: 'yes'
+    CRE - Right Sized: 
+      type: 'text'
+      value: '$right_sized'
+      filterable: 'yes'
