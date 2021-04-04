@@ -1,3 +1,4 @@
+import os
 import yaml
 import json
 from device42 import Device42Api
@@ -14,6 +15,7 @@ device42_api = Device42Api(device42, options)
 dry_run = options['dry_run']
 debug = options['debug']
 use_bulk_fields = options['bulk_fields']
+import_doql = options['import_doql']
 
 def find_endpoint(x):
     return {
@@ -132,11 +134,15 @@ def main(module):
 
     
 if __name__ == '__main__':
+    if import_doql:
+        path = 'template_doql/'
+        doql_files = os.listdir(path)
+        for file in doql_files:
+            f = open(path + file)
+            doql_query = f.read()
+            response = device42_api._post_doql(file[:-4],doql_query)
+            print(response)
     if use_bulk_fields:
         main(module_bulk_field)
     else:
         main(module_normal)
-
-
-    
-        
