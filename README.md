@@ -141,6 +141,9 @@ In the above example, the script will query Device42 for a saved doql query with
             Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 16262, 'WINDOWS-167U3IP', False, False], 'code': 0}
             Payload: {'device_id': 16273, 'bulk_fields': 'CRE - AWS Recommended Instance:t2.micro,CRE - Azure Recommended Instance:F1s,CRE - GCP Recommended Instance:e2-micro,CRE - Right Sized:False'}
             Put:    /api/1.0/device/custom_field/   Response: {'msg': ['custom key pair values added or updated', 16273, 'WINDOWS-LRT92AE', False, False], 'code': 0}
+
+**Screenshot**  
+![](./screenshots/cf_screenshot.png)  
         
 ## 7. Changelog
 **2021-04-03**  
