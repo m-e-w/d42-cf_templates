@@ -7,3 +7,4 @@ options:
   debug: False
   dry_run: False
   bulk_fields: False
+  import_doql : False

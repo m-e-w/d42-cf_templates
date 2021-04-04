@@ -39,6 +39,15 @@ class Device42Api:
         data = {"saved_query_name":saved_doql, "output_type":"json"}
         return self._get(data, url).json()
 
+    def _post_doql(self, name, saved_query):
+        url = 'https://%s/api/1.0/saved_doql_queries/' % self.host
+        data = {
+            'name': name,
+            'saved_query': saved_query
+        }
+        print(data)
+        return self._post(data, url).json()
+
     def _post_appcomp(self, data):
         url = 'https://%s/api/1.0/appcomps/' % self.host
         return self._post(data, url).json()
