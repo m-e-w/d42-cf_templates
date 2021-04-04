@@ -149,3 +149,4 @@ In the above example, the script will query Device42 for a saved doql query with
 **2021-04-03**  
   - Added support for dynamic fields (Use column names to assign custom field values)
   - Added support for bulk_fields (Speeds up requests)
+  - Added option to import saved doql queries in template_doql (Posts saved doql queries)
