@@ -17,13 +17,39 @@ use_bulk_fields = options['bulk_fields']
 
 def find_endpoint(x):
     return {
-        'building': '/api/1.0/custom_fields/building/',
-        'room': '/api/1.0/custom_fields/room/',
-        'rack': '/api/1.0/custom_fields/rack/',
-        'device': '/api/1.0/device/custom_field/',
+        'affinity_group': '/api/1.0/custom_fields/affinity_group/',
+        'appcomp' : '/api/1.0/custom_fields/appcomp/',
         'asset' : '/api/1.0/custom_fields/asset/',
+        'building': '/api/1.0/custom_fields/building/',
+        'businessapp': '/api/1.0/custom_fields/businessapp/',
+        'cable': '/api/1.0/custom_fields/cable/',
+        'circuit': '/api/1.0/custom_fields/circuit/',
+        'certificate': '/api/1.0/custom_fields/certificate/',
+        'customer': '/api/1.0/customer/custom_field/',
+        'databaseinstance': '/api/1.0/custom_fields/databaseinstance/',
+        'device': '/api/1.0/device/custom_field/',
+        'dns_records': '/api/dns_records/custom_field/',
+        'dns_zone': '/api/1.0/custom_fields/dns_zone/',
+        'endusers': '/api/1.0/custom_fields/endusers/',
+        'hardware': '/api/1.0/custom_fields/hardware/',
+        'ip_address': '/api/1.0/custom_fields/ip_address/',
         'part' : '/api/1.0/custom_fields/part/',
-        'appcomp' : '/api/1.0/custom_fields/appcomp/'
+        'partmodel': '/api/1.0/custom_fields/partmodel/',
+        'password': '/api/1.0/custom_fields/password/',
+        'switchport': '/api/1.0/custom_fields/switchport/',
+        'pdu': '/api/1.0/custom_fields/pdu/',
+        'purchase': '/api/1.0/custom_fields/purchase/',
+        'rack': '/api/1.0/custom_fields/rack/',
+        'resource': '/api/1.0/custom_fields/resource/',
+        'room': '/api/1.0/custom_fields/room/',
+        'service': '/api/1.0/custom_fields/service/',
+        'serviceinstance': '/api/1.0/custom_fields/serviceinstance/',
+        'software': '/api/1.0/custom_fields/software/',
+        'softwareinuse': '/api/1.0/custom_fields/softwareinuse/',
+        'subnet': '/api/1.0/custom_fields/subnet/',
+        'vendor': '/api/1.0/custom_fields/vendor/',
+        'switch_vlan': '/api/1.0/custom_fields/switch_vlan/',
+        'vrfgroup': '/api/1.0/custom_fields/vrfgroup/'    
     }.get(x, 'Undefined')
 
 def get_value(value, row):
