@@ -89,12 +89,6 @@ def module_bulk_field(row, unique_id, ci_type, cf_endpoint, template):
             print('\tPut:\t%s\tResponse: %s' % (cf_endpoint,response))
            
 def module_normal(row, unique_id, ci_type, cf_endpoint, template):
-    data = {}
-    if row[unique_id]:
-        if ci_type == 'device':
-            data['device_id'] = row[unique_id]
-        else:
-            data['id'] = row[unique_id]
     for cf in template['custom_fields']:
         value = template['custom_fields'][cf]['value']
         data = dict(template['custom_fields'][cf])
