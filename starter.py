@@ -77,7 +77,7 @@ def module_bulk_field(row, unique_id, ci_type, cf_endpoint, template):
             key = cf
             value = template['custom_fields'][cf]['value']
             value = get_value(value, row)
-            kvp = key + ':' + value
+            kvp = key + ':' + str(value)
             bulk_fields.append(kvp)
 
         data['bulk_fields'] = ",".join(bulk_fields)   

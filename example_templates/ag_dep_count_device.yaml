@@ -1,0 +1,9 @@
+Affinity_Groups:
+  ci_type: 'affinity_group'
+  unique_id: 'affinitygroup_pk'
+  saved_doql: 'ag_dep_count_device'
+  custom_fields:
+    Nodes: 
+      type: 'text'
+      value: '$aff_device_cnt'
+      filterable: 'yes'
