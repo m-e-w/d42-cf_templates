@@ -3,7 +3,7 @@ Affinity_Groups:
   unique_id: 'affinitygroup_pk'
   saved_doql: 'ag_dep_count_all'
   custom_fields:
-    Nodes: 
+    Dependencies: 
       type: 'text'
       value: '$aff_device_cnt'
       filterable: 'yes'
