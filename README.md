@@ -50,6 +50,10 @@ OR
 ### 4.4. Rename config.yaml.example to config.yaml and fill out the required fields
 
 ### 4.5. Replace example templates in templates.yaml with your own
+Example templates are included in the example_templates folder. Just copy the contents of one or more templayes to the templates.yaml in the root directory or use the default.  
+
+Also be aware that this script relies on calling Saved DOQL Queries -- Example queries to go with the templates are located in the templates_doql folder. Set import_doql to true to import them.  
+**Note, PUTS to Saved DOQL Queries are not possible at this time -- If the queries supplied in this repository change, you will need to delete them prior to running in order to update them with the latest DOQL.**
 
 ### 4.6. Run 
 
