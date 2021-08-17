@@ -1,35 +1,37 @@
 # d42-cf_templates
-  - [1. Description](#1-description)
-  - [2. Features](#2-features)
-  - [3. Requirements](#3-requirements)
-  - [4. How to Use](#4-how-to-use)
-    - [4.1. cd to d42-cf_templates and Create a new virtualenv](#41-cd-to-d42-cf_templates-and-create-a-new-virtualenv)
-    - [4.2. Activate the virtual environment](#42-activate-the-virtual-environment)
-    - [4.3. Install requirements](#43-install-requirements)
-    - [4.4. Rename config.yaml.example to config.yaml and fill out the required fields](#44-rename-configyamlexample-to-configyaml-and-fill-out-the-required-fields)
-    - [4.5. Replace example templates in templates.yaml with your own](#45-replace-example-templates-in-templatesyaml-with-your-own)
-    - [4.6. Run](#46-run)
-    - [4.7. Schedule via cron](#47-schedule-via-cron)
-  - [5. How it Works](#5-how-it-works)
-    - [5.1. Example template:](#51-example-template)
-  - [6. Example Output](#6-example-output)
-  - [7. Changelog](#7-changelog)
-## 1. Description
 Define custom field templates to create/update custom fields for various CI's in Device42.
 
-## 2. Features
+- [Changelog](#changelog)
+- [Features](#features)
+- [Requirements](#requirements)
+- [How to Use](#how-to-use)
+- [How it Works](#how-it-works)
+- [Example Output](#example-output)
+
+# Changelog
+## Patch 0.02 | 2021-08-17
+m-e-w: Updated license agreement. 
+
+## Patch 0.01 | 2021-04-03
+m-e-w: Added support for dynamic fields (Use column names to assign custom field values)
+
+m-e-w: Added support for bulk_fields (Speeds up requests)
+
+m-e-w: Added option to import saved doql queries in template_doql (Posts saved doql queries)
+
+# Features
 - Automatically create/update custom fields for various CI types.
 - Create templates to apply groups of custom fields using the response of Saved DOQL Queries as input.
 - Dynamic fields (Specify column vales from DOQL to use as custom field values)
 
-## 3. Requirements
+# Requirements
 - Python 3.6.9 or > 
     - PyYAML==5.4.1
     - requests==2.25.1
 - Device42 MA 16.22.00.1612807182 or >
 
-## 4. How to Use
-### 4.1. cd to d42-cf_templates and Create a new virtualenv 
+# How to Use
+## cd to d42-cf_templates and Create a new virtualenv 
 
     venv venv
 
@@ -39,35 +41,35 @@ OR
 
 
 
-### 4.2. Activate the virtual environment
+## Activate the virtual environment
 
     source venv/bin/activate
 
-### 4.3. Install requirements
+## Install requirements
 
     pip install -r requirements.txt
 
-### 4.4. Rename config.yaml.example to config.yaml and fill out the required fields
+## Rename config.yaml.example to config.yaml and fill out the required fields
 
-### 4.5. Replace example templates in templates.yaml with your own
+## Replace example templates in templates.yaml with your own
 Example templates are included in the example_templates folder. Just copy the contents of one or more templayes to the templates.yaml in the root directory or use the default.  
 
 Also be aware that this script relies on calling Saved DOQL Queries -- Example queries to go with the templates are located in the templates_doql folder. Set import_doql to true to import them.  
 **Note, PUTS to Saved DOQL Queries are not possible at this time -- If the queries supplied in this repository change, you will need to delete them prior to running in order to update them with the latest DOQL.**
 
-### 4.6. Run 
+## Run 
 
     python starter.py
 
-### 4.7. Schedule via cron
+## Schedule via cron
 In crontab add a line like the following to set your command execution schedule:
 
     0 0 * * * python /home/your_user_here/d42-apptemplates/starter.py
 
 This will run the script every night at midnight.
 
-## 5. How it Works
-### 5.1. Example template:
+# How it Works
+## Example template
 **IMPORTANT: Saved DOQL queries NEED to exist in the instance first prior to running**
 
     CRE_RU_ALL: -- Name of the template (Has no bearing, just for labeling)
@@ -82,7 +84,7 @@ This will run the script every night at midnight.
 
 In the above example, the script will query Device42 for a saved doql query with the name 'cre_ru_all'. It will then iterate through all rows in the response data and either post all custom fields as bulk_fields (String of key:values seperated by commas) or it will post each custom field individually (Much slower but allows for other custom field types and parameters). 
 
-## 6. Example Output
+# Example Output
 
     Loading template: CRE_RU_ALL
 
@@ -148,9 +150,4 @@ In the above example, the script will query Device42 for a saved doql query with
 
 **Screenshot**  
 ![](./screenshots/cf_screenshot.png)  
-        
-## 7. Changelog
-**2021-04-03**  
-  - Added support for dynamic fields (Use column names to assign custom field values)
-  - Added support for bulk_fields (Speeds up requests)
-  - Added option to import saved doql queries in template_doql (Posts saved doql queries)
+
