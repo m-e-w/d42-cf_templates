@@ -1,0 +1,2 @@
+template_doql/*.sql linguist-detectable=true
+template_doql/*.sql linguist-language=sql
